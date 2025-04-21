@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 export default function Navbar() {
   return (
     <nav className="bg-white shadow-md">
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div className="container mx-auto px-28 py-4 flex justify-between items-center">
         <Link to="/" className="text-2xl font-bold text-primary">
-          Green World
+          GreenWorld
         </Link>
         <div className="hidden md:flex space-x-6 font-medium">
           <Link to="#features" className="hover:text-primary">Features</Link>

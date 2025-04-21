@@ -1,19 +1,22 @@
-/* src/components/Hero.jsx */
-import React from 'react';
+/* src/components/landingPage/Hero.jsx */
+import React from 'react'
+// import your image file
+import farmImage from '../../assets/images/farm-1.jpg'
 
 export default function Hero() {
   return (
     <section
       className="relative h-screen bg-cover bg-center"
-      style={{ backgroundImage: `url('/images/hero-bg.jpg')` }}
+      // use the imported variable here
+      style={{ backgroundImage: `url(${farmImage})`, height: 'calc(100vh - 5rem)' }}
     >
       <div className="absolute inset-0 bg-black bg-opacity-50" />
-      <div className="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center items-start text-white">
-        <h1 className="text-5xl font-bold mb-4">
-          Green World
+      <div className="relative z-10 container mx-auto px-28 h-full flex flex-col justify-center items-start text-white">
+        <h1 className="text-7xl font-bold mb-4">
+        Green World 
         </h1>
         <p className="text-lg max-w-xl mb-6">
-          Organic Farming Commerce and Training Platform
+        Farmers' Forum For Education and Development
         </p>
         <div className="space-x-4">
           <button className="px-6 py-3 bg-accent rounded-md font-semibold hover:bg-opacity-90">Get Started</button>
@@ -23,5 +26,5 @@ export default function Hero() {
         </div>
       </div>
     </section>
-  );
+  )
 }
