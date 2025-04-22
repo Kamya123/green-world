@@ -9,7 +9,7 @@ import Footer from '../components/landingPage/Footer';
 
 export default function LandingPage() {
   return (
-    <div className="font-sans text-gray-800">
+    <div className=" text-gray-800">
       <ContactBar />
       <Navbar />
       <Hero />

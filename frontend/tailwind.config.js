@@ -10,6 +10,10 @@ export default {
         primary: "#1F7A1F",
         accent: "#F7C948",
       },
+      fontFamily: {
+        roboto: ['Roboto', 'sans-serif'],
+        times: ['"Times New Roman"', 'serif'],
+      },
     },
   },
   plugins: [],

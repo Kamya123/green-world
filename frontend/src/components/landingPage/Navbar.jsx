@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="bg-white shadow-md tracking-wider">
       <div className="container mx-auto px-28 py-4 flex justify-between items-center">
         <Link to="/" className="text-2xl font-bold text-primary">
           GreenWorld

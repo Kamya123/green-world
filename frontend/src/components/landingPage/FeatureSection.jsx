@@ -2,10 +2,11 @@
 import React from 'react'
 import organicFarmImg from '../../assets/images/organic-farm.jpg'
 import bgPattern  from '../../assets/images/3-Photoroom.jpg'  // ← your bg image
+import { FaRegCheckCircle } from "react-icons/fa";
 
 export default function FeatureSection() {
   return (
-    <section id="features" className="pt-20 pb-14 bg-gray-50">
+    <section id="features" className="pt-20 pb-14 bg-white">
       <div className="container mx-auto px-28 md:flex md:items-center">
         <div className="md:w-1/2 mb-8 md:mb-0">
           {/* wrapper: relative so its children can absolutely position */}
@@ -32,15 +33,15 @@ export default function FeatureSection() {
         </div>
 
         <div className="md:w-1/2 md:pl-12 relative -left-8">
-          <h2 className="text-3xl font-bold text-primary mb-4 ">Our Mission</h2>
+          <h2 className="text-4xl font-bold text-primary mb-4 ">Our Mission</h2>
           <p className="mb-6">
             Green World connects buyers directly with trained farmers, sells fresh organic produce, and provides educational resources to help farmers transition to sustainable methods.
           </p>
-          <ul className="list-disc pl-5 space-y-2 text-gray-700">
-            <li>Direct marketplace for farm products</li>
-            <li>Farmer training and support</li>
-            <li>Year-round order tracking</li>
-            <li>Community-driven agricultural education</li>
+          <ul className="list-disc pl-1 space-y-2 text-gray-700">
+            <li className='flex items-center gap-3'><FaRegCheckCircle className='text-accent' />Direct marketplace for farm products</li>
+            <li className='flex items-center gap-3'><FaRegCheckCircle className='text-accent' />Farmer training and support</li>
+            <li className='flex items-center gap-3'><FaRegCheckCircle className='text-accent' />Year-round order tracking</li>
+            <li className='flex items-center gap-3'><FaRegCheckCircle className='text-accent' />Community-driven agricultural education</li>
           </ul>
         </div>
       </div>
