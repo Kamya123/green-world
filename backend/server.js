@@ -10,11 +10,16 @@ const app = express();
 // Middleware
 app.use(bodyParser.json());
 app.use(cors({
-    origin: 'https://green-world-delta.vercel.app/*',
+    origin: 'https://green-world-delta.vercel.app',
     methods: 'GET,POST,PUT,DELETE',
-    credentials: false  // Set to false when using wildcard origin
-  }));
-  
+    credentials: false,  // Set to false when using wildcard origin
+}));
+
+// Log incoming requests
+app.use((req, res, next) => {
+    console.log(`${req.method} request for '${req.url}' - ${JSON.stringify(req.headers.origin)}`);
+    next();
+});
 
 // Routes
 app.use('/api/auth', authRoutes);
