@@ -7,7 +7,7 @@ const SignUp = () => {
     name: '',
     email: '',
     password: '',
-    role: 'buyer', // Default role, adjust as needed
+    role: 'buyer', // Default role
   });
 
   const navigate = useNavigate();
@@ -86,6 +86,23 @@ const SignUp = () => {
                       placeholder="Enter your password"
                       className="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
                     />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="role" className="text-base font-medium text-gray-900"> Role </label>
+                  <div className="mt-2.5">
+                    <select
+                      name="role"
+                      id="role"
+                      value={formData.role}
+                      onChange={handleChange}
+                      className="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
+                    >
+                      <option value="buyer">Buyer</option>
+                      <option value="farmer">Farmer</option>
+                      <option value="admin">Admin</option>
+                    </select>
                   </div>
                 </div>
 

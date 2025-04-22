@@ -1,30 +1,21 @@
 import React, { useState } from 'react';
-import { login } from '../services/authService';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { verifyOTP } from '../services/authService';
 
-const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-
+const OTPVerification = () => {
+  const [otp, setOtp] = useState('');
   const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const location = useLocation();
+  const email = location.state?.email || '';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await login(formData);
+      const response = await verifyOTP({ email, otp });
       localStorage.setItem('token', response.data.token); // Store the token
-      navigate('/verify-otp', { state: { email: formData.email } }); // Pass the email from formData
+      navigate('/dashboard'); // Redirect to home after successful OTP verification
     } catch (error) {
-      console.error('Login failed:', error);
+      console.error('OTP verification failed:', error);
     }
   };
 
@@ -33,41 +24,23 @@ const Login = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="flex items-center justify-center px-4 py-10 bg-white sm:px-6 lg:px-8 sm:py-16 lg:py-24">
           <div className="xl:w-full xl:max-w-sm 2xl:max-w-md xl:mx-auto">
-            <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">Login to Celebration</h2>
+            <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">Verify Your Account</h2>
             <p className="mt-2 text-base text-gray-600">
-              Don't have an account?{' '}
-              <a href="/signup" title="" className="font-medium text-blue-600 transition-all duration-200 hover:text-blue-700 hover:underline focus:text-blue-700">
-                Sign up
-              </a>
+              Enter the OTP sent to your email address.
             </p>
 
             <form onSubmit={handleSubmit} className="mt-8">
               <div className="space-y-5">
                 <div>
-                  <label htmlFor="email" className="text-base font-medium text-gray-900"> Email address </label>
+                  <label htmlFor="otp" className="text-base font-medium text-gray-900"> OTP </label>
                   <div className="mt-2.5">
                     <input
-                      type="email"
-                      name="email"
-                      id="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="Enter your email"
-                      className="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="password" className="text-base font-medium text-gray-900"> Password </label>
-                  <div className="mt-2.5">
-                    <input
-                      type="password"
-                      name="password"
-                      id="password"
-                      value={formData.password}
-                      onChange={handleChange}
-                      placeholder="Enter your password"
+                      type="text"
+                      name="otp"
+                      id="otp"
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value)}
+                      placeholder="Enter the OTP"
                       className="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
                     />
                   </div>
@@ -78,7 +51,7 @@ const Login = () => {
                     type="submit"
                     className="inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md focus:outline-none hover:bg-blue-700 focus:bg-blue-700"
                   >
-                    Login
+                    Verify OTP
                   </button>
                 </div>
               </div>
@@ -107,4 +80,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default OTPVerification;
