@@ -10,9 +10,8 @@ const app = express();
 // Middleware
 app.use(bodyParser.json());
 app.use(cors({
-    origin: 'https://green-world-delta.vercel.app',
-    methods: 'GET,POST,PUT,DELETE',
-    credentials: true,  
+  origin: `https://green-world-delta.vercel.app`,
+  credentials: true
 }));
 
 // Log incoming requests
