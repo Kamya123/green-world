@@ -1,14 +1,14 @@
 /* src/components/landingPage/ProductsPreview.jsx */
 import React from 'react'
 
-import tomatoesImg      from '../../assets/images/tomatoes.jpg'
-import wheatImg         from '../../assets/images/wheat.jpg'
+import tomatoesImg      from '../../assets/images/Tomatoes.jpg'
+import wheatImg         from '../../assets/images/Wheat.jpg'
 import cabbageImg       from '../../assets/images/cabbage.jpg'
-import carrotsImg       from '../../assets/images/carrots.jpg'
-import bananaImg        from '../../assets/images/banana.jpg'
+import carrotsImg       from '../../assets/images/Carrots.jpg'
+import bananaImg        from '../../assets/images/Banana.jpg'
 import greenGrapesImg   from '../../assets/images/green-grapes.jpg'
 import purpleGrapesImg  from '../../assets/images/purple-grapes.jpg'
-import strawberryImg    from '../../assets/images/strawberry.jpg'
+import strawberryImg    from '../../assets/images/Strawberry.jpg'
 
 const products = [
   {
