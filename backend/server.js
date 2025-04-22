@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(cors({
     origin: 'https://green-world-delta.vercel.app',
     methods: 'GET,POST,PUT,DELETE',
-    credentials: false,  // Set to false when using wildcard origin
+    credentials: true,  
 }));
 
 // Log incoming requests
