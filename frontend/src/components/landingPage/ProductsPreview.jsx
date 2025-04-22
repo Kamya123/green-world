@@ -1,20 +1,20 @@
 /* src/components/landingPage/ProductsPreview.jsx */
-import React from 'react'
+import React from 'react';
 
-import tomatoesImg      from '../../assets/images/tomatoes.jpg'
-import wheatImg         from '../../assets/images/wheat.jpg'
-import cabbageImg       from '../../assets/images/cabbage.jpg'
-import carrotsImg       from '../../assets/images/carrots.jpg'
-import bananaImg        from '../../assets/images/banana.jpg'
-import greenGrapesImg   from '../../assets/images/green-grapes.jpg'
-import purpleGrapesImg  from '../../assets/images/purple-grapes.jpg'
-import strawberryImg    from '../../assets/images/strawberry.jpg'
+import tomatoesImg from '../../assets/images/tomatoes.jpg';
+import wheatImg from '../../assets/images/wheat.jpg';
+import cabbageImg from '../../assets/images/cabbage.jpg';
+import carrotsImg from '../../assets/images/carrots.jpg';
+import bananaImg from '../../assets/images/banana.jpg';
+import greenGrapesImg from '../../assets/images/green-grapes.jpg';
+import purpleGrapesImg from '../../assets/images/purple-grapes.jpg';
+import strawberryImg from '../../assets/images/strawberry.jpg';
 
 const products = [
   {
     name: 'Tomatoes',
     image: tomatoesImg,
-    description: `Juicy, sun‑ripened tomatoes perfect for salads and sauces. 
+    description: `Juicy, sun‑ripened tomatoes perfect for salads and sauces.
 Grown organically without pesticides.`
   },
   {
@@ -66,7 +66,7 @@ Grown in nutrient‑rich vineyards.`
 Picked at peak ripeness for best taste.
 Great in desserts, jams, or on their own.`
   },
-]
+];
 
 export default function ProductsPreview() {
   return (
@@ -76,11 +76,14 @@ export default function ProductsPreview() {
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {products.map((p) => (
-          <div key={p.name} className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <img 
-              src={p.image} 
-              alt={p.name} 
-              className="h-48 w-full object-cover" 
+          <div
+            key={p.name}
+            className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105"
+          >
+            <img
+              src={p.image}
+              alt={p.name}
+              className="h-48 w-full object-cover transition-opacity duration-300 hover:opacity-80"
             />
             <div className="p-4">
               <h3 className="text-xl font-semibold mb-2">{p.name}</h3>
@@ -92,5 +95,5 @@ export default function ProductsPreview() {
         ))}
       </div>
     </section>
-  )
+  );
 }
