@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://green-world-xzo7.onrender.com/api/auth'; // Ensure this matches your backend URL
+const API_URL = `${import.meta.env.VITE_BACKEND_URL}/api/auth`; // Ensure this matches your backend URL
 
 export const register = (user) => {
   return axios.post(`${API_URL}/register`, user);
