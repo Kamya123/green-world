@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { verifyOTP } from '../services/authService';
+import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { verifyOTP } from "../../services/authService";
+import { getDashboardPathFromStorage } from '../../utils/jwtHelper';
 
 const OTPVerification = () => {
-  const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  const email = location.state?.email || '';
+  const email = location.state?.email || "";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await verifyOTP({ email, otp });
-      localStorage.setItem('token', response.data.token); // Store the token
-      navigate('/dashboard'); // Redirect to home after successful OTP verification
+      localStorage.setItem("token", response.data.token); // Store the token
+      const redirectPath = getDashboardPathFromStorage() || "/";
+      navigate(redirectPath, { replace: true });
+      //navigate('/dashboard'); // Redirect to home after successful OTP verification
     } catch (error) {
-      console.error('OTP verification failed:', error);
+      console.error("OTP verification failed:", error);
     }
   };
 
@@ -24,7 +27,9 @@ const OTPVerification = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="flex items-center justify-center px-4 py-10 bg-white sm:px-6 lg:px-8 sm:py-16 lg:py-24">
           <div className="xl:w-full xl:max-w-sm 2xl:max-w-md xl:mx-auto">
-            <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">Verify Your Account</h2>
+            <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">
+              Verify Your Account
+            </h2>
             <p className="mt-2 text-base text-gray-600">
               Enter the OTP sent to your email address.
             </p>
@@ -32,7 +37,13 @@ const OTPVerification = () => {
             <form onSubmit={handleSubmit} className="mt-8">
               <div className="space-y-5">
                 <div>
-                  <label htmlFor="otp" className="text-base font-medium text-gray-900"> OTP </label>
+                  <label
+                    htmlFor="otp"
+                    className="text-base font-medium text-gray-900"
+                  >
+                    {" "}
+                    OTP{" "}
+                  </label>
                   <div className="mt-2.5">
                     <input
                       type="text"
@@ -61,11 +72,18 @@ const OTPVerification = () => {
 
         <div className="flex items-center justify-center px-4 py-10 sm:py-16 lg:py-24 bg-gray-50 sm:px-6 lg:px-8">
           <div>
-            <img className="w-full mx-auto" src="https://cdn.rareblocks.xyz/collection/celebration/images/signup/1/cards.png" alt="" />
+            <img
+              className="w-full mx-auto"
+              src="https://cdn.rareblocks.xyz/collection/celebration/images/signup/1/cards.png"
+              alt=""
+            />
             <div className="w-full max-w-md mx-auto xl:max-w-xl">
-              <h3 className="text-2xl font-bold text-center text-black">Design your own card</h3>
+              <h3 className="text-2xl font-bold text-center text-black">
+                Design your own card
+              </h3>
               <p className="leading-relaxed text-center text-gray-500 mt-2.5">
-                Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis.
+                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
+                amet sint. Velit officia consequat duis.
               </p>
               <div className="flex items-center justify-center mt-10 space-x-3">
                 <div className="bg-orange-500 rounded-full w-20 h-1.5"></div>
