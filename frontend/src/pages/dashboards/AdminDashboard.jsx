@@ -1,11 +1,21 @@
 //src/pages/dashboards/AdminDashboard.jsx
 
-import React from 'react'
+import React from "react";
+import AdminSidebar from "../../components/dashboard/admin/AdminSidebar";
+import AdminDashboardHome from "../../components/dashboard/admin/AdminDashboardHome";
 
 const AdminDashboard = () => {
   return (
-    <div>AdminDashboard</div>
-  )
-}
+    <div className="flex h-screen bg-gray-100">
+      {/* Sidebar */}
+      <AdminSidebar />
 
-export default AdminDashboard
+      {/* Main Content */}
+      <div className="flex-1 p-6 overflow-y-auto">
+        <AdminDashboardHome />
+      </div>
+    </div>
+  );
+};
+
+export default AdminDashboard;
