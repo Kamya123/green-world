@@ -1,14 +1,15 @@
 /* src/components/landingPage/Hero.jsx */
 import React from 'react'
+import LazyBg from './LazyBg'
 // import your image file
 import farmImage from '../../assets/images/farm-1.jpg'
 
 export default function Hero() {
   return (
-    <section
+    <LazyBg
+      src={farmImage}
       className="relative h-screen bg-cover bg-center tracking-wider"
-      // use the imported variable here
-      style={{ backgroundImage: `url(${farmImage})`, height: 'calc(100vh - 5rem)' }}
+      style={{ height: 'calc(100vh - 5rem)' }}
     >
       <div className="absolute inset-0 bg-black bg-opacity-50" />
       <div className="relative z-10 container mx-auto px-28 h-full flex flex-col justify-center items-center text-white">
@@ -25,6 +26,6 @@ export default function Hero() {
           </button>
         </div>
       </div>
-    </section>
+    </LazyBg>
   )
 }

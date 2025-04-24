@@ -1,8 +1,9 @@
 /* src/components/landingPage/FeatureSection.jsx */
-import React from 'react'
-import organicFarmImg from '../../assets/images/organic-farm.jpg'
-import bgPattern  from '../../assets/images/3-Photoroom.jpg'  // ← your bg image
+import React from "react";
+import organicFarmImg from "../../assets/images/organic-farm.jpg";
+import bgPattern from "../../assets/images/3-Photoroom.jpg"; // ← your bg image
 import { FaRegCheckCircle } from "react-icons/fa";
+import LazyBg from "./LazyBg";
 
 export default function FeatureSection() {
   return (
@@ -12,20 +13,14 @@ export default function FeatureSection() {
           {/* wrapper: relative so its children can absolutely position */}
           <div className="relative inline-block left-8">
             {/* bg‐pattern: absolute behind the main img */}
-            <div
-              className="
-                absolute
-                -top-20      /* 1rem above the img */
-                -right-16  /* 1rem beyond the right edge */
-                -bottom-20  /* 1rem below */
-                 left-14  /* 1rem inside from the left edge */
-                bg-cover bg-center
-              "
-              style={{ backgroundImage: `url(${bgPattern})` }}
+            <LazyBg
+              src={bgPattern}
+              className="absolute -top-20 -right-16 -bottom-20 left-14 bg-cover bg-center"
             />
             {/* your main image must be “relative” so it layers above */}
             <img
               src={organicFarmImg}
+              loading="lazy"
               alt="Organic Farming"
               className="relative shadow-lg h-[25rem] w-auto"
             />
@@ -35,16 +30,30 @@ export default function FeatureSection() {
         <div className="md:w-1/2 md:pl-12 relative -left-8">
           <h2 className="text-4xl font-bold text-primary mb-4 ">Our Mission</h2>
           <p className="mb-6">
-            Green World connects buyers directly with trained farmers, sells fresh organic produce, and provides educational resources to help farmers transition to sustainable methods.
+            Green World connects buyers directly with trained farmers, sells
+            fresh organic produce, and provides educational resources to help
+            farmers transition to sustainable methods.
           </p>
           <ul className="list-disc pl-1 space-y-2 text-gray-700">
-            <li className='flex items-center gap-3'><FaRegCheckCircle className='text-accent' />Direct marketplace for farm products</li>
-            <li className='flex items-center gap-3'><FaRegCheckCircle className='text-accent' />Farmer training and support</li>
-            <li className='flex items-center gap-3'><FaRegCheckCircle className='text-accent' />Year-round order tracking</li>
-            <li className='flex items-center gap-3'><FaRegCheckCircle className='text-accent' />Community-driven agricultural education</li>
+            <li className="flex items-center gap-3">
+              <FaRegCheckCircle className="text-accent" />
+              Direct marketplace for farm products
+            </li>
+            <li className="flex items-center gap-3">
+              <FaRegCheckCircle className="text-accent" />
+              Farmer training and support
+            </li>
+            <li className="flex items-center gap-3">
+              <FaRegCheckCircle className="text-accent" />
+              Year-round order tracking
+            </li>
+            <li className="flex items-center gap-3">
+              <FaRegCheckCircle className="text-accent" />
+              Community-driven agricultural education
+            </li>
           </ul>
         </div>
       </div>
     </section>
-  )
+  );
 }
