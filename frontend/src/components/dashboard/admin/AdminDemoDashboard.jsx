@@ -1,11 +1,11 @@
 import React from "react";
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, Legend, CartesianGrid, ResponsiveContainer } from "recharts";
 
-import { Button } from "../../normalComps/button";
 import { FiPlus } from "react-icons/fi";
 import { FaSeedling, FaSignOutAlt } from "react-icons/fa";
 import { BsGraphUp } from "react-icons/bs";
-import { Card, CardContent } from "../../normalComps/card";
+import { Card, CardContent } from "../../normalComps/DemoCard";
+import { Button } from "../../normalComps/DemoButton";
 
 const cropsData = [
   { name: "2016", yield: 20 },

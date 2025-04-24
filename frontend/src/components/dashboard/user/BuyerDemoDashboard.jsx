@@ -1,9 +1,9 @@
 // pages/BuyerDashboard.jsx
 import React from "react";
-import { Card, CardContent } from "../../normalComps/card";
-import { Button } from "../../normalComps/button";
 import { motion } from "framer-motion";
 import { FaShoppingCart, FaSignOutAlt } from "react-icons/fa";
+import { Card, CardContent } from "../../normalComps/DemoCard";
+import { Button } from "../../normalComps/DemoButton";
 
 const crops = [
   {

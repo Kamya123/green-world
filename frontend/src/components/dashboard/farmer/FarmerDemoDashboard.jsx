@@ -1,9 +1,10 @@
 // FarmerDashboard.jsx
 import React from "react";
 import { motion } from "framer-motion";
-import { Card, CardContent } from "../../normalComps/card";
-import { Button } from "../../normalComps/button";
+
 import { FaSignOutAlt } from "react-icons/fa"
+import { Card, CardContent } from "../../normalComps/DemoCard";
+import { Button } from "../../normalComps/DemoButton";
 
 const FarmerDemoDashboard = () => {
   return (
