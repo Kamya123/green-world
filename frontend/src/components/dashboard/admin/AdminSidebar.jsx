@@ -5,7 +5,7 @@ import { FaTachometerAlt, FaBoxOpen, FaTags, FaUsers, FaCog } from "react-icons/
 const AdminSidebar = () => {
   return (
     <div className="w-64 bg-white shadow-md p-4">
-      <div className="text-2xl font-bold mb-8 text-blue-600">eBazer</div>
+      <div className="text-2xl font-bold mb-8 text-blue-600">GreenWorld</div>
       <ul className="space-y-4 text-gray-700">
         <li><Link to="#" className="flex items-center gap-2"><FaTachometerAlt /> Dashboard</Link></li>
         <li><Link to="#" className="flex items-center gap-2"><FaBoxOpen /> Products</Link></li>
