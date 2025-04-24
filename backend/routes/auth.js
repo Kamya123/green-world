@@ -102,4 +102,15 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Get all farmers and buyers
+router.get('/farmers-and-buyers', async (req, res) => {
+  try {
+    const farmersAndBuyers = await User.find({ role: { $in: ['farmer', 'buyer'] } });
+    res.json(farmersAndBuyers);
+  } catch (error) {
+    console.error('Error fetching farmers and buyers:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = router;
