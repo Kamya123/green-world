@@ -1,10 +1,13 @@
 //src/pages/dashboards/FarmerDashboard.jsx
 
 import React from 'react'
+import FarmerDemoDashboard from '../../components/dashboard/farmer/FarmerDemoDashboard'
 
 const FarmerDashboard = () => {
   return (
-    <div>FarmerDashboard</div>
+    <div>
+      <FarmerDemoDashboard />
+    </div>
   )
 }
 
