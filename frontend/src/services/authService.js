@@ -13,3 +13,16 @@ export const login = (user) => {
 export const verifyOTP = (data) => {
   return axios.post(`${API_URL}/verify-otp`, data);
 };
+
+export const forgotPassword = email => {
+  axios.post(`${API_URL}/forgot-password`, { email });
+};
+
+export const verifyOtpForgot = ({ email, otp }) => {
+  axios.post(`${API_URL}/verify-otp-forgot`, { email, otp });
+}
+
+export const resetPassword = ({ resetToken, newPassword }) => {
+  axios.post(`${API_URL}/reset-password`, { resetToken, newPassword });
+}
+

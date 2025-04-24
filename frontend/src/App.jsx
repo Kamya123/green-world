@@ -4,11 +4,15 @@ import LandingPage from "./pages/LandingPage";
 import SignUp from "./pages/auth/SignUp";
 import Login from "./pages/auth/Login";
 import OTPVerification from "./pages/auth/OtpVerification";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import VerifyForgotOTP from "./pages/auth/VerifyForgotOTP";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 import BuyerDashboard from "./pages/dashboards/BuyerDashboard";
 import FarmerDashboard from "./pages/dashboards/FarmerDashboard";
 import AdminDashboard from "./pages/dashboards/AdminDashboard";
 import ProtectedRoute from "./routes/ProtectedRoute";
+
 
 export default function App() {
   return (
@@ -19,6 +23,9 @@ export default function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/verify-otp" element={<OTPVerification />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/verify-forgot-otp" element={<VerifyForgotOTP />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
 
         {/* Buyer */}
         <Route element={<ProtectedRoute allowedRoles={["buyer"]} />}>
