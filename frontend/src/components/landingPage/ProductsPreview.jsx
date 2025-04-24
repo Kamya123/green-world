@@ -67,6 +67,7 @@ export default function ProductsPreview() {
           >
             <img
               src={p.image}
+              loading="lazy"
               alt={p.name}
               className="h-48 w-full object-cover transition-opacity duration-300 hover:opacity-80"
             />
