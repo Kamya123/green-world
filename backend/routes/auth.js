@@ -142,6 +142,7 @@ router.post('/forgot-password', async (req, res) => {
 // Verify OTP for Forgot Password
 router.post('/verify-otp-forgot', async (req, res) => {
   const { email, otp } = req.body;
+  console.log('Received OTP verification request:', { email, otp });
 
   try {
     const user = await User.findOne({ email });
@@ -149,10 +150,15 @@ router.post('/verify-otp-forgot', async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
+    console.log('OTP Expires:', user.otpExpires);
+    console.log('Current Time:', new Date());
+    console.log("shi1");
+
     if (user.otp !== otp || user.otpExpires < new Date()) {
+      console.log("galt1");
       return res.status(400).json({ message: 'Invalid or expired OTP' });
     }
-
+    console.log("shi2");
     user.otp = undefined;
     user.otpExpires = undefined;
     await user.save();
@@ -160,13 +166,14 @@ router.post('/verify-otp-forgot', async (req, res) => {
     const resetToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: '10m',
     });
-
-    res.json({ resetToken });
+    console.log("token",resetToken);
+    res.status(200).json({ resetToken });
   } catch (error) {
     console.error('Error verifying OTP:', error);
     res.status(500).json({ error: error.message });
   }
 });
+
 
 // Reset Password
 router.post('/reset-password', async (req, res) => {

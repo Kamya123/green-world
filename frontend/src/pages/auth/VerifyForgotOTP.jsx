@@ -30,7 +30,9 @@ export default function VerifyForgotOTP() {
     setError("");
     setLoading(true);
     try {
+      console.log('Submitting OTP:', otp); // Debugging log
       const res = await verifyOtpForgot({ email, otp });
+      console.log("result"+res);
       navigate("/reset-password", {
         state: { resetToken: res.data.resetToken },
       });

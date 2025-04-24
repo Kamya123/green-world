@@ -10,16 +10,11 @@ const app = express();
 // Middleware
 app.use(bodyParser.json());
 app.use(cors({
-    origin: `${process.env.FRONTEND_URL}`  ,
+    origin: `${process.env.FRONTEND_URL || '*'}`  ,
     methods: 'GET,POST,PUT,DELETE',
     credentials: true,  
 }));
 
-// Log incoming requests
-app.use((req, res, next) => {
-    console.log(`${req.method} request for '${req.url}' - ${JSON.stringify(req.headers.origin)}`);
-    next();
-});
 
 // Routes
 app.use('/api/auth', authRoutes);
