@@ -15,14 +15,14 @@ export const verifyOTP = (data) => {
 };
 
 export const forgotPassword = email => {
-  axios.post(`${API_URL}/forgot-password`, { email });
+  return axios.post(`${API_URL}/forgot-password`, { email });
 };
 
 export const verifyOtpForgot = ({ email, otp }) => {
-  axios.post(`${API_URL}/verify-otp-forgot`, { email, otp });
+  return axios.post(`${API_URL}/verify-otp-forgot`, { email, otp });
 }
 
 export const resetPassword = ({ resetToken, newPassword }) => {
-  axios.post(`${API_URL}/reset-password`, { resetToken, newPassword });
+  return axios.post(`${API_URL}/reset-password`, { resetToken, newPassword });
 }
 
