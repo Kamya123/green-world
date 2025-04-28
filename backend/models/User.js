@@ -5,7 +5,8 @@ const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  role: { type: String, enum: ['farmer', 'admin', 'buyer','others'], required: true },
+  phone: { type: String, required: true }, // Add phone field
+  role: { type: String, enum: ['farmer', 'admin', 'buyer', 'others'], required: true },
   otp: { type: String },
   otpExpires: { type: Date },
 });
