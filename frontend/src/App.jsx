@@ -12,6 +12,7 @@ import BuyerDashboard from "./pages/dashboards/BuyerDashboard";
 import FarmerDashboard from "./pages/dashboards/FarmerDashboard";
 import AdminDashboard from "./pages/dashboards/AdminDashboard";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import OthersDashboard from "./components/dashboard/others/OthersDashboard";
 
 
 export default function App() {
@@ -40,6 +41,10 @@ export default function App() {
         {/* Admin */}
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
           <Route path="/dashboard/admin" element={<AdminDashboard />} />
+        </Route>
+        {/* Others  */}
+        <Route element={<ProtectedRoute allowedRoles={["others"]} />}>
+          <Route path="/dashboard/others" element={<OthersDashboard />} />
         </Route>
       </Routes>
     </Router>

@@ -34,6 +34,8 @@ export function getUserFromToken() {
         return '/dashboard/farmer';
       case 'admin':
         return '/dashboard/admin';
+        case 'others':
+          return '/dashboard/others';
       default:
         return '/';
     }
