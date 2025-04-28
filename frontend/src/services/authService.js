@@ -25,4 +25,3 @@ export const verifyOtpForgot = ({ email, otp }) => {
 export const resetPassword = ({ resetToken, newPassword }) => {
   return axios.post(`${API_URL}/reset-password`, { resetToken, newPassword });
 }
-
