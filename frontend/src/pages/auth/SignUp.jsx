@@ -28,10 +28,6 @@ const SignUp = () => {
       case 'name':
         if (!value.trim()) return 'Full name is required';
         return '';
-      case 'email':
-        if (!value) return 'Email is required';
-        if (!/^\S+@\S+\.\S+$/.test(value)) return 'Enter a valid email';
-        return '';
       case 'password':
         if (!value) return 'Password is required';
         if (value.length < 8) return 'Min 8 characters';
