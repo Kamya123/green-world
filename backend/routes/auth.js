@@ -3,6 +3,9 @@ const router = express.Router();
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
+const textflow = require("textflow.js");
+
+textflow.useKey(process.env.TEXTFLOW_KEY);
 
 // Generate OTP
 const sendOTP = async (email, otp) => {
@@ -29,18 +32,36 @@ const sendOTP = async (email, otp) => {
   }
 };
 
+const sendSMSOTP = async (phone, otp) => {
+  textflow.sendSMS(phone, `Your OTP code is ${otp}. It expires in 10 minutes.`, (result) => {
+    if (!result.ok) {
+      console.error('Error sending SMS:', result);
+    }
+  });
+};
+
 const generateOTP = () => {
   return Math.floor(100000 + Math.random() * 900000).toString(); // Generate a 6-digit OTP
 };
 
 // Register Route
 router.post('/register', async (req, res) => {
-  const { name, email, password, phone, role } = req.body;
+  const { name, email, password, phone, role, signUpMethod } = req.body;
 
   try {
-    const user = new User({ name, email, password, phone, role }); // Include phone
+    const otp = generateOTP();
+    const otpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes expiration
+
+    const user = new User({ name, email, password, phone, role, otp, otpExpires });
     await user.save();
-    res.status(201).json({ message: 'User registered successfully' });
+
+    if (signUpMethod === 'email') {
+      await sendOTP(email, otp);
+    } else if (signUpMethod === 'phone') {
+      await sendSMSOTP(phone, otp);
+    }
+
+    res.status(201).json({ message: 'User registered successfully, OTP sent' });
   } catch (error) {
     console.error('Error registering user:', error);
     res.status(400).json({ error: error.message });
@@ -49,10 +70,10 @@ router.post('/register', async (req, res) => {
 
 // Verify OTP
 router.post('/verify-otp', async (req, res) => {
-  const { email, otp } = req.body;
+  const { email, phone, otp, signUpMethod } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    const user = signUpMethod === 'email' ? await User.findOne({ email }) : await User.findOne({ phone });
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -78,29 +99,30 @@ router.post('/verify-otp', async (req, res) => {
 
 // Login Route
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
+  const { email, phone, password, signUpMethod } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    // Find the user based on the login method (email or phone)
+    const user = signUpMethod === 'email'
+      ? await User.findOne({ email })
+      : await User.findOne({ phone });
+
     if (user && (await user.matchPassword(password))) {
-      const otp = generateOTP();
-      const otpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes expiration
+      // Generate a JWT token for authentication
+      const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, {
+        expiresIn: '1h',
+      });
 
-      user.otp = otp;
-      user.otpExpires = otpExpires;
-      await user.save();
-
-      await sendOTP(email, otp);
-
-      res.json({ message: 'OTP sent to your email' });
+      res.json({ token });
     } else {
-      res.status(401).json({ message: 'Invalid email or password' });
+      res.status(401).json({ message: 'Invalid email/phone or password' });
     }
   } catch (error) {
     console.error('Error logging in user:', error);
     res.status(500).json({ error: error.message });
   }
 });
+
 
 // Get all farmers and buyers
 router.get('/farmers-and-buyers', async (req, res) => {
@@ -115,10 +137,10 @@ router.get('/farmers-and-buyers', async (req, res) => {
 
 // Forgot Password Request
 router.post('/forgot-password', async (req, res) => {
-  const { email } = req.body;
+  const { email, phone, signUpMethod } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    const user = signUpMethod === 'email' ? await User.findOne({ email }) : await User.findOne({ phone });
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -130,9 +152,13 @@ router.post('/forgot-password', async (req, res) => {
     user.otpExpires = otpExpires;
     await user.save();
 
-    await sendOTP(email, otp);
+    if (signUpMethod === 'email') {
+      await sendOTP(email, otp);
+    } else if (signUpMethod === 'phone') {
+      await sendSMSOTP(phone, otp);
+    }
 
-    res.json({ message: 'OTP sent to your email' });
+    res.json({ message: 'OTP sent' });
   } catch (error) {
     console.error('Error sending OTP:', error);
     res.status(500).json({ error: error.message });
@@ -141,11 +167,11 @@ router.post('/forgot-password', async (req, res) => {
 
 // Verify OTP for Forgot Password
 router.post('/verify-otp-forgot', async (req, res) => {
-  const { email, otp } = req.body;
-  console.log('Received OTP verification request:', { email, otp });
+  const { email, phone, otp, signUpMethod } = req.body;
+  console.log('Received OTP verification request:', { email, phone, otp });
 
   try {
-    const user = await User.findOne({ email });
+    const user = signUpMethod === 'email' ? await User.findOne({ email }) : await User.findOne({ phone });
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -166,14 +192,13 @@ router.post('/verify-otp-forgot', async (req, res) => {
     const resetToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: '10m',
     });
-    console.log("token",resetToken);
+    console.log("token", resetToken);
     res.status(200).json({ resetToken });
   } catch (error) {
     console.error('Error verifying OTP:', error);
     res.status(500).json({ error: error.message });
   }
 });
-
 
 // Reset Password
 router.post('/reset-password', async (req, res) => {
