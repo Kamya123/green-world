@@ -4,8 +4,10 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const textflow = require("textflow.js");
+require('dotenv').config();
 
-textflow.useKey(process.env.TEXTFLOW_KEY);
+
+textflow.useKey("A4vVv7zAAWN8wUoN89wausT3nojNwxCf62YSMiJNctZjUS993YIpezVFjBEV3RQs");
 
 // Generate OTP
 const sendOTP = async (email, otp) => {
@@ -47,6 +49,7 @@ const generateOTP = () => {
 // Register Route
 router.post('/register', async (req, res) => {
   const { name, email, password, phone, role, signUpMethod } = req.body;
+  // console.log("TEXTFLOW_KEY:", key);
 
   try {
     const otp = generateOTP();
@@ -100,6 +103,7 @@ router.post('/verify-otp', async (req, res) => {
 // Login Route
 router.post('/login', async (req, res) => {
   const { email, phone, password, signUpMethod } = req.body;
+console.log("TEXTFLOW_KEY:", key);
 
   try {
     // Find the user based on the login method (email or phone)
