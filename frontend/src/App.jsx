@@ -13,6 +13,7 @@ import FarmerDashboard from "./pages/dashboards/FarmerDashboard";
 import AdminDashboard from "./pages/dashboards/AdminDashboard";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import OthersDashboard from "./components/dashboard/others/OthersDashboard";
+import Vision from "./components/landingPage/Vision";
 
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/verify-forgot-otp" element={<VerifyForgotOTP />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/our-vision" element={<Vision />} />
 
         {/* Buyer */}
         <Route element={<ProtectedRoute allowedRoles={["buyer"]} />}>
