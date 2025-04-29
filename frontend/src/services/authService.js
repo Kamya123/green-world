@@ -22,12 +22,12 @@ export const verifyPhoneOTP = (data) => {
   return axios.post(`${API_URL}/verify-phone-otp`, data);
 };
 
-export const forgotPassword = email => {
-  return axios.post(`${API_URL}/forgot-password`, { email });
+export const forgotPassword = ({email, phone, signUpMethod}) => {
+  return axios.post(`${API_URL}/forgot-password`, { email, phone, signUpMethod });
 };
 
-export const verifyOtpForgot = ({ email, otp }) => {
-  return axios.post(`${API_URL}/verify-otp-forgot`, { email, otp });
+export const verifyOtpForgot = ({ email, phone, otp, signUpMethod }) => {
+  return axios.post(`${API_URL}/verify-otp-forgot`, {  email, phone, otp, signUpMethod  });
 }
 
 export const resetPassword = ({ resetToken, newPassword }) => {

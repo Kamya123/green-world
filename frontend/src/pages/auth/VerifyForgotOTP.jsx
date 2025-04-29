@@ -5,6 +5,8 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 export default function VerifyForgotOTP() {
   const { state } = useLocation();
   const email = state?.email || "";
+  const phone = state?.phone || "";
+  const signUpMethod = state?.signUpMethod || "email";
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -30,9 +32,7 @@ export default function VerifyForgotOTP() {
     setError("");
     setLoading(true);
     try {
-      console.log('Submitting OTP:', otp); // Debugging log
-      const res = await verifyOtpForgot({ email, otp });
-      console.log("result"+res);
+      const res = await verifyOtpForgot({ email, phone, otp, signUpMethod });
       navigate("/reset-password", {
         state: { resetToken: res.data.resetToken },
       });
@@ -49,7 +49,7 @@ export default function VerifyForgotOTP() {
         <div className="w-full max-w-md mx-auto px-4">
           <h2 className="text-3xl font-bold mb-4">Verify OTP</h2>
           <p className="text-gray-600 mb-6">
-            We sent a 6-digit code to <strong>{email}</strong>.
+            We sent a 6-digit code to <strong>{signUpMethod === "email" ? email : phone}</strong>.
           </p>
           <form
             onSubmit={handleSubmit}
