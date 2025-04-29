@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { login } from '../../services/authService';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { VscEye, VscEyeClosed } from 'react-icons/vsc';
+import { getDashboardPathFromStorage } from '../../utils/jwtHelper';
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: '',
+    identifier: '', // Use a generic identifier for email or phone
     password: '',
     rememberMe: false,
+    loginMethod: 'email', // Default to email login
   });
   const [errors, setErrors] = useState({});
   const [submitError, setSubmitError] = useState('');
@@ -15,17 +17,15 @@ const Login = () => {
   const [showPwd, setShowPwd] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
 
   useEffect(() => {
-    document.getElementById('email')?.focus();
+    document.getElementById('identifier')?.focus();
   }, []);
 
   const validate = (name, value) => {
-    if (name === 'email') {
-      if (!value) return 'Email is required';
-      if (!/^\S+@\S+\.\S+$/.test(value)) return 'Enter a valid email';
+    if (name === 'identifier') {
+      if (!value) return 'Identifier is required';
+      if (formData.loginMethod === 'email' && !/^\S+@\S+\.\S+$/.test(value)) return 'Enter a valid email';
     }
     if (name === 'password') {
       if (!value) return 'Password is required';
@@ -43,7 +43,7 @@ const Login = () => {
 
   const runAllValidations = () => {
     const newErr = {};
-    ['email', 'password'].forEach(f => {
+    ['identifier', 'password'].forEach(f => {
       newErr[f] = validate(f, formData[f]);
     });
     setErrors(newErr);
@@ -58,11 +58,14 @@ const Login = () => {
     setLoading(true);
     try {
       const res = await login({
-        email: formData.email,
+        email: formData.loginMethod === 'email' ? formData.identifier : undefined,
+        phone: formData.loginMethod === 'phone' ? formData.identifier : undefined,
         password: formData.password,
+        signUpMethod: formData.loginMethod,
       });
       localStorage.setItem('token', res.data.token);
-      navigate('/verify-otp', { replace: true, state: { email: formData.email, from } });
+      const redirectPath = getDashboardPathFromStorage() || "/";
+            navigate(redirectPath, { replace: true });
     } catch (err) {
       setSubmitError(err.response?.data?.message || 'Login failed');
     } finally {
@@ -83,20 +86,37 @@ const Login = () => {
             </p>
 
             <form onSubmit={handleSubmit} aria-live="polite" className="space-y-5">
-              {/* Email */}
+              {/* Login Method */}
               <div>
-                <label htmlFor="email" className="block font-medium">Email address</label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
+                <label htmlFor="loginMethod" className="block font-medium">Login Method</label>
+                <select
+                  id="loginMethod"
+                  name="loginMethod"
+                  value={formData.loginMethod}
                   onChange={handleChange}
-                  placeholder="you@example.com"
-                  aria-invalid={!!errors.email}
+                  className="w-full p-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+                >
+                  <option value="email">Email</option>
+                  <option value="phone">Phone Number</option>
+                </select>
+              </div>
+
+              {/* Identifier (Email or Phone) */}
+              <div>
+                <label htmlFor="identifier" className="block font-medium">
+                  {formData.loginMethod === 'email' ? 'Email address' : 'Phone Number'}
+                </label>
+                <input
+                  id="identifier"
+                  name="identifier"
+                  type={formData.loginMethod === 'email' ? 'email' : 'text'}
+                  value={formData.identifier}
+                  onChange={handleChange}
+                  placeholder={formData.loginMethod === 'email' ? 'you@example.com' : 'Enter your phone number'}
+                  aria-invalid={!!errors.identifier}
                   className="w-full p-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
                 />
-                {errors.email && <p className="mt-1 text-red-600 text-sm">{errors.email}</p>}
+                {errors.identifier && <p className="mt-1 text-red-600 text-sm">{errors.identifier}</p>}
               </div>
 
               {/* Password */}
@@ -170,7 +190,7 @@ const Login = () => {
             />
             <h3 className="mt-6 text-2xl font-bold">GreenWorld Farmers' Forum</h3>
             <p className="mt-2 text-gray-500">
-            Green World connects buyers with trained organic farmers through e-commerce and education-driven platform.
+              Green World connects buyers with trained organic farmers through e-commerce and education-driven platform.
             </p>
             <div className="flex justify-center space-x-3 mt-6">
               <div className="h-1.5 w-20 bg-orange-500 rounded-full"/>
@@ -185,4 +205,3 @@ const Login = () => {
 };
 
 export default Login;
-

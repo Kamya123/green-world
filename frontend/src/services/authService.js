@@ -14,6 +14,14 @@ export const verifyOTP = (data) => {
   return axios.post(`${API_URL}/verify-otp`, data);
 };
 
+export const sendPhoneOTP = (phone) => {
+  return axios.post(`${API_URL}/send-phone-otp`, { phone });
+};
+
+export const verifyPhoneOTP = (data) => {
+  return axios.post(`${API_URL}/verify-phone-otp`, data);
+};
+
 export const forgotPassword = email => {
   return axios.post(`${API_URL}/forgot-password`, { email });
 };
