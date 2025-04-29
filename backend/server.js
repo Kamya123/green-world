@@ -10,7 +10,7 @@ const app = express();
 // Middleware
 app.use(bodyParser.json());
 app.use(cors({
-    origin: `[${process.env.FRONTEND_URL1}, ${process.env.FRONTEND_URL2 || '*'}]`  ,
+    origin: `*`  ,
     methods: 'GET,POST,PUT,DELETE',
     credentials: true,  
 }));
