@@ -7,7 +7,9 @@ const textflow = require("textflow.js");
 require('dotenv').config();
 
 
-textflow.useKey("A4vVv7zAAWN8wUoN89wausT3nojNwxCf62YSMiJNctZjUS993YIpezVFjBEV3RQs");
+const key = process.env.TEXTFLOW_API_KEY;
+console.log("TEXTFLOW_KEY:", key);
+textflow.useKey(key);
 
 // Generate OTP
 const sendOTP = async (email, otp) => {
