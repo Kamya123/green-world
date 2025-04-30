@@ -1,3 +1,4 @@
+// src/components/landingPage/Vision.jsx
 import React from "react";
 import { FaRegCheckCircle } from "react-icons/fa";
 
@@ -18,16 +19,16 @@ const objectives = [
 
 export default function Vision() {
   return (
-    <section id="vision" className="pb-20 w-full bg-white">
-      <div className="w-full">
-        <h2 className="text-6xl h-52 flex items-center justify-center px-20 bg-primary font-medium text-white mb-6">
+    <section id="vision" className="bg-white w-full">
+      <div className="max-w-full">
+        <h2 className="text-6xl md:text-6xl h-40 md:h-52 flex items-center justify-center px-4 sm:px-6 md:px-20 lg:px-40 bg-primary font-medium text-white mb-8">
           Our Objectives
         </h2>
-        <div className="px-40 pt-8">
+        <div className="px-4 sm:px-6 md:px-20 lg:px-40 pb-20">
           <ul className="space-y-4 text-gray-700">
             {objectives.map((item, idx) => (
               <li key={idx} className="flex items-start gap-3">
-                <FaRegCheckCircle className="text-accent mt-1" />
+                <FaRegCheckCircle className="text-accent mt-1 flex-shrink-0" />
                 <span>{item}</span>
               </li>
             ))}
