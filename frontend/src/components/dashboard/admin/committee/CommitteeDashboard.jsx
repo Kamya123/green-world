@@ -103,7 +103,7 @@ const CommitteeDashboard = () => {
           onClick={handleAdd}
           className="bg-green-600 text-white hover:bg-green-700 flex items-center justify-center"
         >
-          <FaUserPlus className="mr-2" /> {title}
+          <FaUserPlus className="mr-2" /> Add Employee
         </Button>
       </Card>
 
