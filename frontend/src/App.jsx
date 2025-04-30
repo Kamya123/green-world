@@ -1,6 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
 import LandingPage from "./pages/LandingPage";
+import Vision from "./components/landingPage/Vision";
+
+import ProtectedRoute from "./routes/ProtectedRoute";
+
 import SignUp from "./pages/auth/SignUp";
 import Login from "./pages/auth/Login";
 import OTPVerification from "./pages/auth/OtpVerification";
@@ -10,11 +15,14 @@ import ResetPassword from "./pages/auth/ResetPassword";
 
 import BuyerDashboard from "./pages/dashboards/BuyerDashboard";
 import FarmerDashboard from "./pages/dashboards/FarmerDashboard";
-import AdminDashboard from "./pages/dashboards/AdminDashboard";
-import ProtectedRoute from "./routes/ProtectedRoute";
 import OthersDashboard from "./components/dashboard/others/OthersDashboard";
-import Vision from "./components/landingPage/Vision";
 
+import CommitteeDashboard from "./components/dashboard/admin/committee/CommitteeDashboard";
+import ProductsDashboard from "./components/dashboard/admin/products/ProductsDashboard";
+import SettingsPage from "./components/dashboard/admin/settings/SettingsPage";
+
+import AdminDashboard from "./pages/dashboards/AdminDashboard"; // This is now just layout wrapper
+import { Outlet } from "react-router-dom";
 
 export default function App() {
   return (
@@ -42,9 +50,15 @@ export default function App() {
 
         {/* Admin */}
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
-          <Route path="/dashboard/admin" element={<AdminDashboard />} />
+          <Route path="/dashboard/admin" element={<AdminDashboard />}>
+            <Route index element={<ProductsDashboard />} />
+            <Route path="products" element={<ProductsDashboard />} />
+            <Route path="settings" element={<SettingsPage />} />
+            <Route path="committee/:subcat" element={<CommitteeDashboard />} />
+          </Route>
         </Route>
-        {/* Others  */}
+
+        {/* Others */}
         <Route element={<ProtectedRoute allowedRoles={["others"]} />}>
           <Route path="/dashboard/others" element={<OthersDashboard />} />
         </Route>
