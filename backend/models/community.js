@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 // Define a schema for each department member
 const memberSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  phoneNumber: { type: String, required: true },
+  phoneNumber: { type: String },
   departmentID: { type: String, required: true },
-  emailAddress: { type: String, required: true }
+  emailAddress: { type: String, required: true },
+  password: {type:String,required:true},
 });
 
 // Define a schema for the community
