@@ -6,6 +6,8 @@ const Navbar         = lazy(() => import('../components/landingPage/Navbar'));
 const Hero           = lazy(() => import('../components/landingPage/Hero'));
 const FeatureSection = lazy(() => import('../components/landingPage/FeatureSection'));
 const ProductsPreview= lazy(() => import('../components/landingPage/ProductsPreview'));
+const InitiativesPreview= lazy(() => import('../components/landingPage/InitiativesPreview'));
+const ImageSlider= lazy(() => import('../components/landingPage/ImageSlider'));
 const Footer         = lazy(() => import('../components/landingPage/Footer'));
 
 export default function LandingPage() {
@@ -18,7 +20,8 @@ export default function LandingPage() {
       <div className="pt-24">
         <Suspense fallback={<div className="h-screen bg-gray-200 animate-pulse" />}><Hero /></Suspense>
         <Suspense fallback={<div className="py-20 bg-white animate-pulse" />}><FeatureSection /></Suspense>
-        <Suspense fallback={<div className="py-20 bg-white animate-pulse" />}><ProductsPreview /></Suspense>
+        <Suspense fallback={<div className="py-20 bg-white animate-pulse" />}><InitiativesPreview /></Suspense>
+        <Suspense fallback={<div className="py-20 bg-white animate-pulse" />}><ImageSlider /></Suspense>
         <Suspense fallback={<div className="h-32 bg-gray-100 animate-pulse" />}><Footer /></Suspense>
       </div>
     </div>

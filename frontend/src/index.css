@@ -17,3 +17,52 @@ h1, h2 {
 html {
   scroll-behavior: smooth;
 }
+
+
+/* make non-center slides a bit smaller/fainter */
+.slick-slide .slide-content {
+  transform: scale(0.94);
+  opacity: 0.6;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* when a slide is centered, pop it forward */
+.slick-center .slide-content {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* fade the overlay in only on the center slide */
+.slick-center .slide-content-overlay {
+  opacity: 1 !important;
+}
+
+/* === Slick slider theming === */
+
+/* Make the dots black */
+.slick-dots li button:before {
+  color: #000 !important;
+  opacity: 0.75;
+}
+
+/* On hover/focus, make dots fully opaque */
+.slick-dots li.slick-active button:before,
+.slick-dots li button:hover:before {
+  opacity: 1;
+}
+
+/* Make the prev/next arrows black */
+.slick-prev:before,
+.slick-next:before {
+  color: #000 !important;
+  font-size: 30px;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+/* On hover, arrows go fully opaque */
+.slick-prev:hover:before,
+.slick-next:hover:before {
+  opacity: 1;
+}
+
