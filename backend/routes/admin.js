@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const Community = require('../models/community'); // Adjust the path as necessary
+const Community = require('../models/community');
+const User = require('../models/User'); // Import the User model
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 // Function to generate a random password
 const generateRandomPassword = () => {
-  return Math.random().toString(36).slice(-8); // Generate a random 8-character password
+  return Math.random().toString(36).slice(-8);
 };
 
 // Function to send an email with login credentials
@@ -36,7 +37,8 @@ const sendLoginCredentials = async (email, password) => {
 
 // Route to add a member to a department
 router.post('/add-member', async (req, res) => {
-  const { department, name, email } = req.body;
+  const { department, name, email, phone } = req.body;
+  console.log(req.body);
 
   // Ensure name and email are provided
   if (!name || !email) {
@@ -51,7 +53,7 @@ router.post('/add-member', async (req, res) => {
   const memberDetails = {
     name,
     emailAddress: email,
-    phoneNumber: '', // You can set a default value or handle it as needed
+    phoneNumber: phone,
     departmentID,
     password,
   };
@@ -60,7 +62,6 @@ router.post('/add-member', async (req, res) => {
     let community = await Community.findOne();
 
     if (!community) {
-      // If no community document exists, create a new one
       community = new Community({
         [department]: [memberDetails]
       });
@@ -69,14 +70,42 @@ router.post('/add-member', async (req, res) => {
       community[department].push(memberDetails);
     }
 
-    await community.save();
+    // Create a new user with the same email and password
+    const user = new User({
+      name,
+      email,
+      password,
+      phone,
+      role: 'admin', // Set a default role or modify as needed
+    });
 
+    await user.save();
+    
+    await community.save();
     // Send an email with the login credentials
     await sendLoginCredentials(email, password);
 
     res.status(200).json({ message: 'Member added successfully and login credentials sent.' });
   } catch (error) {
     console.error('Error adding member to department:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+router.get('/employees/:department', async (req, res) => {
+  const { department } = req.params;
+
+  try {
+    const community = await Community.findOne();
+
+    if (!community) {
+      return res.status(404).json({ message: 'Community not found' });
+    }
+
+    const employees = community[department] || [];
+
+    res.status(200).json(employees);
+  } catch (error) {
+    console.error('Error fetching employees:', error);
     res.status(500).json({ error: error.message });
   }
 });

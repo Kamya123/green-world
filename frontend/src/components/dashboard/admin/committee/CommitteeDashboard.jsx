@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Card } from "../../../normalComps/DemoCard";
 import { Button } from "../../../normalComps/DemoButton";
+import axios from "axios";
 import {
   FaUserPlus,
   FaSort,
@@ -21,26 +22,62 @@ const prettify = (slug) =>
     .map((w) => w[0].toUpperCase() + w.slice(1))
     .join(" ");
 
+const prettify1 = (slug) =>
+  slug
+    .split("-")
+    .map((w) => w[0].toUpperCase() + w.slice(1))
+    .join("");
+
 const CommitteeDashboard = () => {
-  const { subcat } = useParams();            // e.g. "advisor-mentor"
-  const label = prettify(subcat);            // → "Advisor Mentor"
-  const title = `Add New ${label.startsWith("/") ? label : label} Employee`; 
+  const { subcat } = useParams(); // e.g. "advisor-mentor"
+  const label = prettify(subcat);
+  const label1 = prettify1(subcat); // → "Advisor Mentor"
+  const title = `Add New ${label.startsWith("/") ? label : label} Employee`;
 
   const [employees, setEmployees] = useState([]);
-  const [form, setForm]         = useState({ name: "", email: "", phone: "" });
-  const [search, setSearch]     = useState("");
-  const [sortKey, setSortKey]   = useState("name");
+  const [form, setForm] = useState({ name: "", email: "", phone: "" });
+  const [search, setSearch] = useState("");
+  const [sortKey, setSortKey] = useState("name");
+
+  // Fetch employees when the component mounts
+  useEffect(() => {
+    const fetchEmployees = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/api/admin/employees/${label1}`);
+        setEmployees(response.data);
+      } catch (error) {
+        console.error('Error fetching employees:', error);
+      }
+    };
+
+    fetchEmployees();
+  }, [label1]);
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (form.name && form.email && form.phone) {
-      setEmployees([
-        ...employees,
-        { id: `DPT-${employees.length + 1}`, ...form },
-      ]);
-      setForm({ name: "", email: "", phone: "" });
+      try {
+        const response = await axios.post('http://localhost:3000/api/admin/add-member', {
+          department: label1,
+          name: form.name,
+          email: form.email,
+          phone: form.phone
+        });
+
+        if (response.status === 200) {
+          setEmployees([
+            ...employees,
+            { id: `DPT-${employees.length + 1}`, ...form },
+          ]);
+          setForm({ name: "", email: "", phone: "" });
+          alert('Member added successfully and login credentials sent.');
+        }
+      } catch (error) {
+        console.error('Error adding member:', error);
+        alert('Error adding member. Please try again.');
+      }
     }
   };
 
@@ -168,10 +205,10 @@ const CommitteeDashboard = () => {
               sortedEmployees.map((emp, idx) => (
                 <tr key={idx} className="hover:bg-gray-100">
                   <td className="px-4 py-2">{idx + 1}</td>
-                  <td className="px-4 py-2">{emp.id}</td>
+                  <td className="px-4 py-2">{emp.departmentID}</td>
                   <td className="px-4 py-2">{emp.name}</td>
-                  <td className="px-4 py-2">{emp.email}</td>
-                  <td className="px-4 py-2">{emp.phone}</td>
+                  <td className="px-4 py-2">{emp.emailAddress}</td>
+                  <td className="px-4 py-2">{emp.phoneNumber}</td>
                 </tr>
               ))
             ) : (

@@ -11,12 +11,12 @@ const memberSchema = new mongoose.Schema({
 
 // Define a schema for the community
 const communitySchema = new mongoose.Schema({
-  advisorMentor: [memberSchema],
-  training: [memberSchema],
-  marketing: [memberSchema],
-  exportImport: [memberSchema],
-  websiteAppHandling: [memberSchema],
-  finance: [memberSchema]
+  AdvisorMentor: [memberSchema],
+  Training: [memberSchema],
+  Marketing: [memberSchema],
+  ExportImport: [memberSchema],
+  WebsiteAndAppHandling: [memberSchema],
+  Finance: [memberSchema]
 });
 
 // Create a model for the community

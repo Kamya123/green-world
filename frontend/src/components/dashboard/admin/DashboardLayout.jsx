@@ -25,19 +25,19 @@ const useAuth = () => ({
 
 // Master list of committees with corresponding icons
 const allCommittees = [
-  "Advisor/Mentor",
+  "Advisor Mentor",
   "Training",
   "Marketing",
-  "Export/Import",
+  "Export Import",
   "Website and App handling",
   "Finance",
 ];
 
 const committeeIcons = {
-  "Advisor/Mentor": <FaChalkboardTeacher className="text-gray-500" />,
+  "Advisor Mentor": <FaChalkboardTeacher className="text-gray-500" />,
   Training:        <FaChalkboard      className="text-gray-500" />,  
   Marketing:      <FaBullhorn       className="text-gray-500" />,  
-  "Export/Import": <FaShip            className="text-gray-500" />,  
+  "Export Import": <FaShip            className="text-gray-500" />,  
   "Website and App handling": <FaLaptopCode    className="text-gray-500" />,  
   Finance:        <FaDollarSign     className="text-gray-500" />  
 };

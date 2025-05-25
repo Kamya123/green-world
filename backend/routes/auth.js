@@ -51,7 +51,6 @@ const generateOTP = () => {
 // Register Route
 router.post('/register', async (req, res) => {
   const { name, email, password, phone, role, signUpMethod } = req.body;
-  // console.log("TEXTFLOW_KEY:", key);
 
   try {
     const otp = generateOTP();
@@ -105,7 +104,6 @@ router.post('/verify-otp', async (req, res) => {
 // Login Route
 router.post('/login', async (req, res) => {
   const { email, phone, password, signUpMethod } = req.body;
-console.log("TEXTFLOW_KEY:", key);
 
   try {
     // Find the user based on the login method (email or phone)
@@ -128,7 +126,6 @@ console.log("TEXTFLOW_KEY:", key);
     res.status(500).json({ error: error.message });
   }
 });
-
 
 // Get all farmers and buyers
 router.get('/farmers-and-buyers', async (req, res) => {
