@@ -6,34 +6,58 @@ import 'slick-carousel/slick/slick-theme.css';
 
 const slides = [
   {
-    src: 'https://images.unsplash.com/photo-1693925380807-81be3d1d7105?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Tractor in the field',
-    title: 'Modern Tractors',
-    caption: 'Empowering farmers with the latest machinery.'
+    src: '  https://images.unsplash.com/photo-1604135849192-b08f647aace7?q=80&w=1473&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    alt: 'Farmers Ploughing',
+    title: 'Farmers Ploughing',
+    caption: 'Early-morning toil as farmers till the soil for the season’s first crop.'
   },
   {
-    src: 'https://images.unsplash.com/photo-1598291234998-8f09be2ac4d9?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Fishermen at dawn',
-    title: 'Fisherman Community',
-    caption: 'Supporting coastal livelihoods and techniques.'
+    src: 'https://images.unsplash.com/photo-1708592190051-993acee29680?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    alt: 'Women Development',
+    title: 'Women Development',
+    caption: 'Empowering rural women through training and community-led initiatives.'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1678082309527-7c47ac57d738?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    alt: 'Artefacts',
+    title: 'Artefacts',
+    caption: 'Traditional hand-carved artefacts showcasing local cultural heritage.'
+  },
+  {
+    src: '  https://images.unsplash.com/photo-1719852255246-898f965e04e4?q=80&w=1474&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    alt: 'Pottery',
+    title: 'Pottery',
+    caption: 'Skilled artisans shaping clay into functional and decorative pottery.'
   },
   {
     src: 'https://images.unsplash.com/photo-1702396303435-76dd4dd12ce4?q=80&w=1631&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     alt: 'Harvesting honeycombs',
     title: 'Honey Harvest',
-    caption: 'Celebrating the sweet fruits of beekeeping.'
+    caption: 'Beekeepers harvesting fresh honeycombs at sunrise for pure, golden honey.'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1693925380807-81be3d1d7105?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    alt: 'Tractor in the field',
+    title: 'Modern Tractors',
+    caption: 'Mechanized farming in action: tractors transforming fields with precision.'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1598291234998-8f09be2ac4d9?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    alt: 'Fishermen at dawn',
+    title: 'Fisherman Community',
+    caption: 'Early-morning nets cast by fishermen to sustain coastal livelihoods.'
   },
   {
     src: 'https://images.unsplash.com/photo-1688296415469-19766056300e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     alt: 'Grazing cows',
     title: 'Livestock Care',
-    caption: 'Ensuring healthy cattle management.'
+    caption: 'Dedicated caretakers ensuring the health and well-being of grazing cattle.'
   },
   {
     src: 'https://images.unsplash.com/photo-1623211268529-69c56e303312?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     alt: 'Farmers working together',
     title: 'Community Farming',
-    caption: 'Uniting hands to grow sustainable harvests.'
+    caption: 'Neighbors working side by side to cultivate sustainable, shared harvests'
   }
 ];
 
