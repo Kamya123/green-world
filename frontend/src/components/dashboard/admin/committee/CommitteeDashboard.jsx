@@ -43,7 +43,7 @@ const CommitteeDashboard = () => {
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/admin/employees/${label1}`);
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/admin/employees/${label1}`);
         setEmployees(response.data);
       } catch (error) {
         console.error('Error fetching employees:', error);
@@ -59,7 +59,7 @@ const CommitteeDashboard = () => {
   const handleAdd = async () => {
     if (form.name && form.email && form.phone) {
       try {
-        const response = await axios.post('http://localhost:3000/api/admin/add-member', {
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/admin/add-member`, {
           department: label1,
           name: form.name,
           email: form.email,
